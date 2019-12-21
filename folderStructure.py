@@ -5,21 +5,25 @@ import os
 
 def folderStructure(folderPath):
 	os.chdir(folderPath)
+	directionFolderName = 'template'
 	def createStructure():
 		for i in os.walk(folderPath):
-			try:
-				os.mkdir(os.getcwd()+'\\template'+i[0].replace(os.getcwd(),''))
-			except:
+			if directionFolderName in i[0]:
 				continue
+			else:
+				try:
+					os.mkdir(os.getcwd().replace('\\','/')+'\\'+directionFolderName+i[0].replace(os.getcwd().replace('\\','/'),''))
+				except:
+					continue
 
 	try:
-		os.mkdir('template')
+		os.mkdir(directionFolderName)
 		createStructure()
 	except:
 		createStructure()
 
 
 if __name__ == '__main__':
-	folderStructure(input('Путь к эталону: '))
+	folderStructure(input('Folder path: ').replace('\\','/'))
 
 
